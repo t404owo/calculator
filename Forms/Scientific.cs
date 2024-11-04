@@ -1,9 +1,9 @@
 using System;
-using System.Drawing;//farben
-using System.Text.RegularExpressions;//für match regulärer ausdruck
-using System.Windows.Forms;//für winforms
-using System.Globalization;//für Komma und Punkt
-using Microsoft.Win32;//Fonts=>registry für versionen
+using System.Drawing;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using System.Globalization;
+using Microsoft.Win32;
 using System.Linq;
 using System.Security.Policy;
 
@@ -17,7 +17,7 @@ namespace Calculator
         public string first_num, to_calculate, operation,
                       decimal_seprator, icons, last_memory;
         public bool MemoriesPanel_enabled, number_is_written, equal_pressed, operation_pressed, special_sepator_trigger, 
-            //for "2nd"s and hyperbolic functions
+            
             second_button_on, extended_2nd_button_on, hyperbol_button_on;
         public int ExtendedPanel_height, counter, brackets, length_to_erase;
         public Button lastbutton, CurrentExtendedButton;
@@ -38,23 +38,23 @@ namespace Calculator
 
             InitializeComponent();
 
-            //Initializiere sonstiges
+            
 
             RegistryKey reg = Registry.LocalMachine.
             OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
-            //Font-Grund: windows 11 hat bessere Fonts als win10/win8/win7.
+            
 
 
 
             string build_version = reg.GetValue("CurrentBuild") as string;
             icons = int.Parse(build_version) >= 22000 ?
             "Segoe Fluent Icons" : "Segoe MDL2 Assets";
-            //Win11                win7/Win8/win10
+            
             this.DelButton.Font = new System.Drawing.Font(this.icons,
                 13.8F, System.Drawing.FontStyle.Regular,
                 System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
-            //^v1.0.0a
+            
             this.menuButton.Font = new System.Drawing.Font(this.icons,
                 10.2F, System.Drawing.FontStyle.Regular,
                 System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -62,7 +62,7 @@ namespace Calculator
                 13.8F, System.Drawing.FontStyle.Regular,
                 System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuButton2.Font = this.menuButton1.Font;
-            //font wechseln nach bestimmte fonts
+            
 
             this.MemButton1.ForeColor = SystemColors.GrayText;
             this.MemButton2.ForeColor = SystemColors.GrayText;
@@ -136,7 +136,7 @@ namespace Calculator
             }
 
             Button NumButton = sender as Button;
-            //need to fix 0.x returns x; fix:(this.replaceable&&!Regex.Match(numBox.Text,"[.,]").Success)
+            
             if (this.first_num == "0" || this.operation_pressed || this.special_sepator_trigger)
             {
                 bool reply_to_this_thing = Regex.Match(numBox.Text, "[.,]").Success;
@@ -168,7 +168,7 @@ namespace Calculator
             if (this.CurrentExtendedButton.BackColor != SystemColors.Control) this.ExtendedPanelTimer.Start();
             if (this.numBox.Text == "Fehler") return;
 
-            //if (this.replaceable) this.first_num = "0";
+            
             Match match = Regex.Match(this.first_num, "[,.]", RegexOptions.None, TimeSpan.FromSeconds(1));
             if (!this.operation_pressed)
             {
@@ -216,7 +216,7 @@ namespace Calculator
                     this.bracketOpen.Text = "(";
                     if (lastbutton != null) lastbutton.BackColor = SystemColors.ControlLight;
                     break;
-                case ""://Backspace (⌫), Segoe Fluent Symbol font
+                case "":
                     if (this.operation_pressed) {
                         this.ClearEntryButton.PerformClick();
                         return; 
@@ -253,7 +253,7 @@ namespace Calculator
                 Regex.Match(this.first_num, @"(\d|𝑒|π)*([,.](?!(\d|𝑒|π)))", RegexOptions.None, TimeSpan.FromSeconds(1)).Success
                 ) ? "0" : "");
             Button OperationButton = sender as Button;
-            //ersatzbar=>ersetzen
+            
             if (this.operation_pressed)
             {
 
@@ -279,10 +279,10 @@ namespace Calculator
             }
             else
             {
-                //warum?: um weiter auszurechnen
-                //und?: um operatoren hineinzufügen
-                //und?: um operatoren nach dem gleich einzufügen
-                //und?: um das gleiche Zahl oder ein andere in funktion zu führen.
+                
+                
+                
+                
 
                 this.operation = OperationButton.Text;
                 this.to_calculate += (Regex.Match("" + this.to_calculate, @"(\d|𝑒|π|\))$").Success ? "" : this.first_num) 
@@ -368,7 +368,7 @@ namespace Calculator
         }
 
 
-        //
+        
 
 
         private void EqualButton_Click(object sender, EventArgs e)
@@ -390,7 +390,7 @@ namespace Calculator
         }
 
 
-        //^v0.0.3
+        
         private void MemoryButton_Click(Object sender, EventArgs e)
         {
             if (this.menuButton.Text != "") this.triggerMenu.Start();
@@ -399,7 +399,7 @@ namespace Calculator
             if (this.MemPanel.Controls.Count > 0) this.last_memory = this.MemPanel.Controls[0].Text;
 
 
-            //
+            
             Button MemButton = new Button();
             MemButton.FlatAppearance.BorderSize = 0;
             MemButton.FlatStyle = FlatStyle.Flat;
@@ -413,8 +413,8 @@ namespace Calculator
             
             MemButton.UseVisualStyleBackColor = true;
             MemButton.Click += new EventHandler(MemoryRecall_Click);
-            //MemButton.MouseEnter += new EventHandler(MemoryActionButtons_TriggerOn);
-            //MemButton.MouseLeave += new EventHandler(MemoryActionButtons_TriggerOff);
+            
+            
 
             for (int i = 2; i >= 0; i--)
             {
@@ -433,8 +433,8 @@ namespace Calculator
                 MemActionButton.Text = MemActionButton_Action[2-i];
                 MemActionButton.Click += MemActionButton_Click;
                 MemButton.Controls.Add(MemActionButton);
-                //MemActionButton.Parent.Parent.Controls.IndexOf(MemActionButton.Parent)
-                //remove from array mc, m+ use from array and plus
+                
+                
 
             }
 
@@ -565,7 +565,7 @@ namespace Calculator
             this.calculationBox.Text = "";
         }
 
-        //^v1.0.0a
+        
         private void TriggerMenuButton_Click(object sender, EventArgs e)
         {
             if (MemoriesPanel_enabled)
@@ -575,7 +575,7 @@ namespace Calculator
             triggerMenu.Start();
         }
 
-        //^v0.0.3
+        
         private void NumButton_OnKeyPress(object sender, KeyPressEventArgs e)
         {
             if (this.menuButton.Text != "") this.triggerMenu.Start();
@@ -666,39 +666,39 @@ namespace Calculator
         }*/
 
 
-        //^v1.0.0a
+        
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            if (this.menuButton.Text == "")//menu
+            if (this.menuButton.Text == "")
             {
                 if (triggerMemPanel.Enabled) return;
                 this.menu.Location = new Point(Convert.ToInt32((- Math.Pow(1.75, -counter))
-                    * this.menu.Width), this.menu.Location.Y);//quad
+                    * this.menu.Width), this.menu.Location.Y);
                 if (this.menu.Location.X >= 0)
                 {
                     counter = 0;
-                    this.menuButton.Text = "";//close
+                    this.menuButton.Text = "";
                     triggerMenu.Stop();
                 }
             }
             else
             {
                 this.menu.Location = new Point(Convert.ToInt32((- Math.Pow(1.75, counter / 1.5 - 10))
-                    * (this.menu.Width + 1.5)), this.menu.Location.Y);//quint
+                    * (this.menu.Width + 1.5)), this.menu.Location.Y);
                 if (this.menu.Location.X <= -this.menu.Width)
                 {
                     counter = 0;
-                    this.menuButton.Text = "";//menu
+                    this.menuButton.Text = "";
                     triggerMenu.Stop();
                 }
             }
             counter += 1;
         }
 
-        //^v0.0.3
+        
         private void Timer2_Tick(object sender, EventArgs e)
         {
-            if (!this.MemoriesPanel_enabled)//menu
+            if (!this.MemoriesPanel_enabled)
             {
                 if (triggerMenu.Enabled) return;
                 this.MemPanel.Location = new Point(this.MemPanel.Location.X, this.Height - Convert.ToInt32((1-Math.Pow(1.5, -counter))* this.MemPanel.Height));
@@ -724,7 +724,7 @@ namespace Calculator
             counter += 1;
         }
 
-        //1.0.0b
+        
         private void MenuButton_Click(object sender, EventArgs e)
         {
             if (this.menuButton.Text != "") this.triggerMenu.Start();
@@ -888,7 +888,7 @@ namespace Calculator
             counter += 1;
         }
 
-        // utils those only work among the form
+        
         private void addCertainExponent(string name)
         {
             this.first_num += name;
