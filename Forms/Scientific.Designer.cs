@@ -607,7 +607,7 @@ namespace Calculator
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(276, 57);
             this.label1.TabIndex = 39;
-            this.label1.Text = "Wissenschaftlich";
+            this.label1.Text = "Scientific";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // triggerMenu
