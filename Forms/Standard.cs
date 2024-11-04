@@ -1,10 +1,10 @@
-﻿using Microsoft.Win32;//Fonts=>registry für versionen
+﻿using Microsoft.Win32;
 using System;
-using System.Drawing;//farben
-using System.Globalization;//für Komma und Punkt
+using System.Drawing;
+using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;//für match regulärer ausdruck
-using System.Windows.Forms;//für winforms
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 
 
@@ -30,23 +30,23 @@ namespace Calculator
 
             InitializeComponent();
 
-            //Initializiere sonstiges
+            
 
             RegistryKey reg = Registry.LocalMachine.
             OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
-            //Font-Grund: windows 11 hat bessere Fonts als win10/win8/win7.
+            
 
 
 
             string build_version = reg.GetValue("CurrentBuild") as string;
             icons = int.Parse(build_version) >= 22000 ?
             "Segoe Fluent Icons" : "Segoe MDL2 Assets";
-            //Win11                win7/Win8/win10
+            
             this.DelButton.Font = new System.Drawing.Font(this.icons,
                 13.8F, System.Drawing.FontStyle.Regular,
                 System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
-            //^v1.0.0a
+            
             this.menuButton.Font = new System.Drawing.Font(this.icons,
                 10.2F, System.Drawing.FontStyle.Regular,
                 System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -54,7 +54,7 @@ namespace Calculator
                 13.8F, System.Drawing.FontStyle.Regular,
                 System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuButton2.Font = this.menuButton1.Font;
-            //font wechseln nach bestimmte fonts
+            
 
             this.MemButton1.ForeColor = SystemColors.GrayText;
             this.MemButton2.ForeColor = SystemColors.GrayText;
@@ -63,7 +63,7 @@ namespace Calculator
             this.MemPanel.Width = this.Width;
 
             this.numBox.Text = new MathParser() { angleUnit = AngleUnit.Rad }.Parse("2yroot((acosh(1)+13)mod3^1-2*2/(4/2*2)+9)-3+(1/3*3)-1+fact(3)-6-logbase(10)(10)-1+log(100)+100%-1-100%*1+(100%/1)").ToString();
-            //easter egg, returns 0 onto the main box (also a check of the parser itself if it's working properly) ;D
+            
         }
         private void ChangeOperationButtonsForeColor(Color color)
         {
@@ -109,7 +109,7 @@ namespace Calculator
             }
 
             Button NumButton = sender as Button;
-            //need to fix 0.x returns x; fix:(this.replaceable&&!Regex.Match(numBox.Text,"[.,]").Success)
+            
             if (this.first_num == "0" || this.replaceable || this.special_sepator_trigger)
             {
                 bool reply_to_this_thing = Regex.Match(numBox.Text, "[.,]").Success;
@@ -149,7 +149,7 @@ namespace Calculator
                     this.calculationBox.Text = "";
                     if (lastbutton != null) lastbutton.BackColor = SystemColors.ControlLight;
                     break;
-                case ""://Backspace (⌫), Segoe Fluent Symbol font
+                case "":
                     if (this.replaceable) return;
                     if (this.equal_pressed)
                     {
@@ -242,8 +242,8 @@ namespace Calculator
                 this.replaceable = false;
             }
             else if (this.replaceable)
-            //warum?: um neue Zahleneingabe das operator zu führen .
-            //und?: weitere Operationen bei versehen zu vermeiden .
+            
+            
 
             {
                 this.operation = OperationButton.Text;
@@ -254,18 +254,18 @@ namespace Calculator
             }
             else
             {
-                //warum?: um weiter auszurechnen
-                //und?: um operatoren hineinzufügen
-                //und?: um operatoren nach dem gleich einzufügen
-                //und?: um das gleiche Zahl oder ein andere in funktion zu führen.
+                
+                
+                
+                
                 if (this.operation != "") EqualButton_Click(sender, e);
                 this.to_calculate = this.first_num;
-                //this.first_num = "0";
+                
                 this.operation = OperationButton.Text;
                 if (lastbutton != null) lastbutton.BackColor = SystemColors.ControlLight;
                 lastbutton = OperationButton;
                 OperationButton.BackColor = Color.CornflowerBlue;
-                //this.numBox.Text = "0";
+                
                 this.calculationBox.Text = (!this.to_calculate.Contains("E") ?
                     this.to_calculate : "(" + this.to_calculate + ")")
                     + this.operation;
@@ -289,7 +289,7 @@ namespace Calculator
                 this.operation != "" ?
                 this.operation +
                 (this.first_num.StartsWith("-") || this.first_num.Contains("E") ?
-                "(" + this.first_num + ")" : this.first_num) : "" // uhhh x*/+-(-x)
+                "(" + this.first_num + ")" : this.first_num) : "" 
                 ) +
                 "=";
             if (this.to_calculate == "0" && this.operation == "") this.calculationBox.Text = this.first_num;
@@ -329,7 +329,7 @@ namespace Calculator
             if (equal_pressed) return;
             this.inversed_num = "";
 
-            //if (this.replaceable) this.first_num = "0";
+            
             Match match = Regex.Match(this.first_num, "[,.]", RegexOptions.None, TimeSpan.FromSeconds(1));
             if (!this.replaceable)
             {
@@ -347,7 +347,7 @@ namespace Calculator
 
         }
 
-        //^v0.0.3
+        
         private void MemoryButton_Click(Object sender, EventArgs e)
         {
             if (this.menuButton.Text != "") this.triggerMenu.Start();
@@ -355,7 +355,7 @@ namespace Calculator
             if (this.MemPanel.Controls.Count > 0) this.last_memory = this.MemPanel.Controls[0].Text;
 
 
-            //
+            
             Button MemButton = new Button();
             MemButton.FlatAppearance.BorderSize = 0;
             MemButton.FlatStyle = FlatStyle.Flat;
@@ -369,8 +369,8 @@ namespace Calculator
 
             MemButton.UseVisualStyleBackColor = true;
             MemButton.Click += new EventHandler(MemoryRecall_Click);
-            //MemButton.MouseEnter += new EventHandler(MemoryActionButtons_TriggerOn);
-            //MemButton.MouseLeave += new EventHandler(MemoryActionButtons_TriggerOff);
+            
+            
 
             for (int i = 2; i >= 0; i--)
             {
@@ -389,8 +389,8 @@ namespace Calculator
                 MemActionButton.Text = MemActionButton_Action[2 - i];
                 MemActionButton.Click += MemActionButton_Click;
                 MemButton.Controls.Add(MemActionButton);
-                //MemActionButton.Parent.Parent.Controls.IndexOf(MemActionButton.Parent)
-                //remove from array mc, m+ use from array and plus
+                
+                
 
             }
 
@@ -513,7 +513,7 @@ namespace Calculator
             this.calculationBox.Text = "";
         }
 
-        //^v1.0.0a
+        
         private void TriggerMenuButton_Click(object sender, EventArgs e)
         {
             if (MemoriesPanel_enabled)
@@ -523,7 +523,7 @@ namespace Calculator
             triggerMenu.Start();
         }
 
-        //^v0.0.3
+        
         private void NumButton_OnKeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Return || e.KeyChar == (char)Keys.Enter)
@@ -598,39 +598,39 @@ namespace Calculator
                 button.Visible = false;
             }
         }*/
-        //^v1.0.0a
+        
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            if (this.menuButton.Text == "")//menu
+            if (this.menuButton.Text == "")
             {
                 if (triggerMemPanel.Enabled) return;
                 this.menu.Location = new Point(Convert.ToInt32((-Math.Pow(1.75, -counter))
-                    * this.menu.Width), this.menu.Location.Y);//quad
+                    * this.menu.Width), this.menu.Location.Y);
                 if (this.menu.Location.X >= 0)
                 {
                     counter = 0;
-                    this.menuButton.Text = "";//close
+                    this.menuButton.Text = "";
                     triggerMenu.Stop();
                 }
             }
             else
             {
                 this.menu.Location = new Point(Convert.ToInt32((-Math.Pow(1.75, counter / 1.5 - 10))
-                    * (this.menu.Width + 1.5)), this.menu.Location.Y);//quint
+                    * (this.menu.Width + 1.5)), this.menu.Location.Y);
                 if (this.menu.Location.X <= -this.menu.Width)
                 {
                     counter = 0;
-                    this.menuButton.Text = "";//menu
+                    this.menuButton.Text = "";
                     triggerMenu.Stop();
                 }
             }
             counter += 1;
         }
 
-        //^v0.0.3
+        
         private void Timer2_Tick(object sender, EventArgs e)
         {
-            if (!this.MemoriesPanel_enabled)//menu
+            if (!this.MemoriesPanel_enabled)
             {
                 if (triggerMenu.Enabled) return;
                 this.MemPanel.Location = new Point(this.MemPanel.Location.X, this.Height - Convert.ToInt32((1 - Math.Pow(1.5, -counter)) * this.MemPanel.Height));
@@ -656,7 +656,7 @@ namespace Calculator
             counter += 1;
         }
 
-        //1.0.0b
+        
         private void MenuButton_Click(object sender, EventArgs e)
         {
             if (this.menuButton.Text != "") this.triggerMenu.Start();
@@ -679,7 +679,7 @@ namespace Calculator
             }
         }
 
-        //default
+        
         private void Form1_Load(object sender, EventArgs e)
         {
 
