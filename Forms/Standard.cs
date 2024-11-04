@@ -661,7 +661,7 @@ namespace Calculator
         {
             if (this.menuButton.Text != "") this.triggerMenu.Start();
             Button btn = sender as Button;
-            if (btn.Text.EndsWith("Wissenschaftlich"))
+            if (btn.Text.EndsWith("Scientific"))
             {
                 Scientific scientific = new Scientific()
                 {
