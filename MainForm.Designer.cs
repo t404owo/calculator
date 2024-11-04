@@ -41,7 +41,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Rechner (v1.0.0 beta 1)";
+            this.Text = "Calculator (v1.0.0 beta 1)";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
 
