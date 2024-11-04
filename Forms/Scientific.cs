@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;//farben
 using System.Text.RegularExpressions;//für match regulärer ausdruck
 using System.Windows.Forms;//für winforms
@@ -196,10 +196,12 @@ namespace Calculator
             switch (OperationButton.Text)
             {
                 case "CE":
+                    
+                        this.length_to_erase = 1;
                     if (this.equal_pressed)
                     {
-                        this.operation = "";
-                        this.to_calculate = "";
+                        this.ClearButton.PerformClick();
+                        return;
                     }
                     this.first_num = "0";
                     this.calculationBox.Text = to_calculate;
@@ -215,11 +217,15 @@ namespace Calculator
                     if (lastbutton != null) lastbutton.BackColor = SystemColors.ControlLight;
                     break;
                 case ""://Backspace (⌫), Segoe Fluent Symbol font
-                    if (this.operation_pressed) return;
+                    if (this.operation_pressed) {
+                        this.ClearEntryButton.PerformClick();
+                        return; 
+                    }
                     if (this.equal_pressed)
                     {
-                        this.to_calculate = "";
+                        ClearButton.PerformClick();
                         this.calculationBox.Text = "";
+                        return;
                     }
                     if (Regex.Match(this.first_num, "E[0-9]*").Success)
                     {
