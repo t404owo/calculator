@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+using System.Windows.Forms;
 
 namespace Calculator
 {
@@ -658,7 +658,7 @@ namespace Calculator
             this.ExtendedButton1.Name = "ExtendedButton1";
             this.ExtendedButton1.Size = new System.Drawing.Size(180, 43);
             this.ExtendedButton1.TabIndex = 44;
-            this.ExtendedButton1.Text = "◿ Trigonometrie ";
+            this.ExtendedButton1.Text = "◿ Trigonometry ";
             this.ExtendedButton1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ExtendedButton1.UseVisualStyleBackColor = true;
             this.ExtendedButton1.Click += new System.EventHandler(this.ExtendButton_Click);
@@ -690,7 +690,7 @@ namespace Calculator
             this.ExtendedButton2.Name = "ExtendedButton2";
             this.ExtendedButton2.Size = new System.Drawing.Size(161, 43);
             this.ExtendedButton2.TabIndex = 49;
-            this.ExtendedButton2.Text = "ƒ Funktionen ";
+            this.ExtendedButton2.Text = "ƒ Functions ";
             this.ExtendedButton2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ExtendedButton2.UseVisualStyleBackColor = true;
             this.ExtendedButton2.Click += new System.EventHandler(this.ExtendButton_Click);
@@ -997,7 +997,7 @@ namespace Calculator
             this.menuButton2.Padding = new System.Windows.Forms.Padding(24, 0, 0, 0);
             this.menuButton2.Size = new System.Drawing.Size(345, 75);
             this.menuButton2.TabIndex = 1;
-            this.menuButton2.Text = " Wissenschaftlich";
+            this.menuButton2.Text = " Scientific";
             this.menuButton2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.menuButton2.UseVisualStyleBackColor = true;
             this.menuButton2.Click += new System.EventHandler(this.MenuButton_Click);
@@ -1402,4 +1402,3 @@ namespace Calculator
         private Button AbsButton;
     }
 }
-
