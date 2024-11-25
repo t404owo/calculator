@@ -38,7 +38,9 @@ namespace Calculator
 
             InitializeComponent();
 
-            
+            //doublebuffer
+            this.DoubleBuffered = true;
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer|ControlStyles.AllPaintingInWmPaint|ControlStyles.UserPaint, true);
 
             RegistryKey reg = Registry.LocalMachine.
             OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
